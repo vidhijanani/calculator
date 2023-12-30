@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+            background-color:black;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+    .calculator {
+        height: 300px;
+        width:250px;
+        background-color:rgb(7, 2, 2);
+        border-radius:20px;
+        display:grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-row: 100% 100%;
+        grid-gap:5px;
+        margin:10px;
+        padding:30px;
+    }
+    #calc {
+        grid-column: 1/5;
+        text-align: right;
+        padding-right: 15px;
+        font-size: 1.5em;
+
+    }
+    button {
+        background-color: rgb(238, 173, 53);
+        border-radius:10px;
+        border:none;
+        font-size:1.2em;
+    }
+    button:hover {
+        background-color: #fff
+
+    }
+    </style>
+</head>
+    <body>
+
+    <div class="calculator">
+    <input type="text" id="calc" style="border-radius:10px; border:none;">
+
+    <!-- <br> -->
+
+    <button type="button" onclick="getValue(7)">7</button>
+    <button type="button" onclick="getValue(8)">8</button>
+    <button type="button" onclick="getValue(9)">9</button>
+    <button type="button" onclick="getValue('-')">-</button>
+
+
+
+    <!-- <br> -->
+
+    <button type="button" onclick="getValue(4)">4</button>
+    <button type="button" onclick="getValue(5)">5</button>
+    <button type="button" onclick="getValue(6)">6</button>
+    <button type="button" onclick="getValue('*')">*</button>
+
+
+    <!-- <br> -->
+
+    <button type="button" onclick="getValue(1)">1</button>
+    <button type="button" onclick="getValue(2)">2</button>
+    <button type="button" onclick="getValue(3)">3</button>
+    <button type="button" onclick="getValue('+')">+</button>
+
+    <!-- <br> -->
+    <button type="button" onclick="getValue('/')">/</button>
+    <button type="button" onclick="getValue(0)">0</button>
+
+    <button type="button" onclick="clearValue()">Reset</button>
+    <button type="button" onclick="getResult()">=</button>
+    
+
+</div>
+
+
+<script> 
+    function getValue(a){
+        document.getElementById("calc").value += a;    
+    }   
+    function getResult(){
+      let x = document.getElementById("calc").value;     
+      var smval = x.includes('+');
+      var subval = x.includes('-');
+      var divval = x.includes('/');
+      var mulval = x.includes('*');  
+      if(smval == true){
+          var val = x.split("+");
+          ansVal('+',val);
+      }else if(subval == true){
+        var val = x.split("-");
+        ansVal('-',val);
+      }else if(divval == true){   
+        var val = x.split("/");
+        ansVal('/',val);
+      }else if(mulval == true){
+        var val = x.split("*");
+        ansVal('*',val);
+      }
+    }  
+    function ansVal(oprt,val) {
+        var otpt = 0;
+        if(oprt == '+'){
+            otpt = eval(val[0]) + eval(val[1])
+        }if(oprt == '-'){
+            otpt = eval(val[0]) - eval(val[1])
+        }if(oprt == '*'){
+            otpt = eval(val[0]) * eval(val[1])
+        }if(oprt == '/'){
+            otpt = eval(val[0]) / eval(val[1])
+        }
+        document.getElementById("calc").value = otpt; 
+    }
+
+    function clearValue(){
+        document.getElementById("calc").value = '';
+    }
+   
+</script>
+
+</body>
+</html>

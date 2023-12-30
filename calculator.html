@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+            background-color:black;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+    .calculator {
+        height: 300px;
+        width:250px;
+        background-color:rgb(7, 2, 2);
+        border-radius:20px;
+        display:grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-row: 100% 100%;
+        grid-gap:5px;
+        margin:10px;
+        padding:30px;
+    }
+    #calc {
+        grid-column: 1/5;
+        text-align: right;
+        padding-right: 15px;
+        font-size: 1.5em;
+
+    }
+    button {
+        background-color: rgb(238, 173, 53);
+        border-radius:10px;
+        border:none;
+        font-size:1.2em;
+    }
+    button:hover {
+        background-color: #fff
+
+    }
+    </style>
+</head>
+    <body>
+
+    <div class="calculator">
+    <input type="text" id="calc" style="border-radius:10px; border:none;">
+
+    <!-- <br> -->
+
+    <button type="button" onclick="getValue(7)">7</button>
+    <button type="button" onclick="getValue(8)">8</button>
+    <button type="button" onclick="getValue(9)">9</button>
+    <button type="button" onclick="getValue('-')">-</button>
+
+
+
+    <!-- <br> -->
+
+    <button type="button" onclick="getValue(4)">4</button>
+    <button type="button" onclick="getValue(5)">5</button>
+    <button type="button" onclick="getValue(6)">6</button>
+    <button type="button" onclick="getValue('*')">*</button>
+
+
+    <!-- <br> -->
+
+    <button type="button" onclick="getValue(1)">1</button>
+    <button type="button" onclick="getValue(2)">2</button>
+    <button type="button" onclick="getValue(3)">3</button>
+    <button type="button" onclick="getValue('+')">+</button>
+
+    <!-- <br> -->
+    <button type="button" onclick="getValue('/')">/</button>
+    <button type="button" onclick="getValue(0)">0</button>
+
+    <button type="button" onclick="clearValue()">Reset</button>
+    <button type="button" onclick="getResult()">=</button>
+    
+
+</div>
+
+
+<script> 
+    function getValue(a){
+        document.getElementById("calc").value += a;  
+        console.log(a);  
+        if(a == '+' || a == '-' || a == '/' || a == '*'){
+            var splt = document.getElementById("calc").value.split(a);
+            console.log(splt[0]);
+            var splt2 = splt[0].split(/[+\-*/]/g);
+            var oprt = splt[0].match(/[+\-*/]/g);
+            console.log(splt2);
+            console.log(oprt[0]);
+            if(splt.length == 2){
+                var otpt = getAndCalcVal(splt2[0],oprt[0], splt2[1]);
+                console.log(otpt);
+                document.getElementById("calc").value = (otpt+a); 
+            }
+            
+        }
+    }   
+
+    function getResult(){
+      let x = document.getElementById("calc").value;     
+      var smval = x.includes('+');
+      var subval = x.includes('-');
+      var divval = x.includes('/');
+      var mulval = x.includes('*');  
+      if(smval == true){
+          var val = x.split("+");
+        //   console.log(val);
+          var sm = eval(val[0]) + eval(val[1]);
+          document.getElementById("calc").value   =  sm; 
+      }
+      
+      else if(subval == true){
+       
+        var val = x.split("-");
+        //   console.log(val);
+          var sub = eval(val[0]) - eval(val[1]);
+          document.getElementById("calc").value = sub; 
+      }
+      
+      else if(divval == true){
+          
+        var val = x.split("/");
+        //   console.log(val);
+          var div = eval(val[0]) / eval(val[1]);
+          document.getElementById("calc").value = div; 
+      }
+      
+      else if(mulval == true){
+          
+        var val = x.split("*");
+        //   console.log(val);
+          var mul = eval(val[0]) * eval(val[1]);
+          document.getElementById("calc").value = mul; 
+      } 
+    }  
+
+    function clearValue(){
+        document.getElementById("calc").value = '';
+    }
+   
+    function getAndCalcVal(val1,operator,val2) {
+        val1 = eval(val1);
+        val2 = eval(val2);
+        
+        switch (operator) {
+            case '+':
+            return val1+val2;
+            break;
+        
+            case '-':
+            return val1-val2;
+            break;
+
+            case '/':
+            return val1/val2;
+            break;
+
+            case '*':
+            return val1*val2;
+            break;
+            
+            default:
+            return NaN;
+            break;
+        }
+    }
+
+</script>
+
+</body>
+</html>
